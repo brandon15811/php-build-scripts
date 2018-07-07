@@ -10,6 +10,15 @@ set PATH=C:\Program Files\7-Zip;C:\Program Files (x86)\GnuWin32\bin;%PATH%
 set VC_VER=vc15
 set ARCH=x64
 set CMAKE_TARGET=Visual Studio 15 2017 Win64
+set DEBUG=0
+
+if %DEBUG% == 0 (
+	set OUT_PATH=Release
+	set HAVE_DEBUG=enable-debug-pack
+) else (
+	set OUT_PATH=Debug
+	set HAVE_DEBUG=enable-debug
+)
 
 REM need this version to be able to compile as a shared library
 set LIBYAML_VER=660242d6a418f0348c61057ed3052450527b3abf
@@ -165,7 +174,7 @@ call buildconf.bat >>"%log_file%" 2>&1
 call configure^
  --with-mp=auto^
  --with-prefix=pocketmine-php-bin^
- --enable-debug-pack^
+ --%HAVE_DEBUG%^
  --disable-all^
  --disable-cgi^
  --enable-cli^
@@ -215,7 +224,7 @@ cd "%outpath%"
 
 call :pm-echo "Copying artifacts..."
 mkdir bin
-move C:\pocketmine-php-sdk\php-src\%ARCH%\Release_TS\php-%PHP_VER% bin\php
+move C:\pocketmine-php-sdk\php-src\%ARCH%\%OUT_PATH%_TS\php-%PHP_VER% bin\php
 cd bin\php
 
 set php_ini=php.ini
@@ -279,7 +288,7 @@ if exist %package_filename% rm %package_filename%
 
 call :pm-echo "Created build package %package_filename%"
 call :pm-echo "Moving debugging symbols to output directory..."
-move C:\pocketmine-php-sdk\php-src\%ARCH%\Release_TS\php-debug-pack*.zip .
+move C:\pocketmine-php-sdk\php-src\%ARCH%\%OUT_PATH%_TS\php-debug-pack*.zip .
 call :pm-echo "Done?"
 
 exit 0
