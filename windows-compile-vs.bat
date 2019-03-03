@@ -266,8 +266,8 @@ if exist %package_filename% rm %package_filename%
 7z a -bd %package_filename% bin vc_redist.x64.exe >nul || call :pm-fatal-error "Failed to package the build"
 
 call :pm-echo "Created build package %package_filename%"
-call :pm-echo "Moving debugging symbols to output directory..."
-move C:\pocketmine-php-sdk\php-src\%ARCH%\Release_TS\php-debug-pack*.zip .
+call :pm-echo "Moving debugging symbols to output directory... (I actually broke this, so fix it first)"
+REM move pocketmine-php-sdk\php-src\%ARCH%\Release_TS\php-debug-pack*.zip .
 call :pm-echo "Done?"
 
 exit 0
