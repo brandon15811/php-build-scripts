@@ -37,7 +37,7 @@ where 7z >nul 2>nul || (call :pm-echo-error "7z is required" & exit 1)
 
 call :pm-echo "PHP Windows compiler"
 call :pm-echo "Setting up environment..."
-call "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\VC\Auxiliary\Build\vcvarsall.bat" %ARCH% >>"%log_file%" 2>&1 || call :pm-fatal-error "Error initializing Visual Studio environment"
+call "C:\Program Files (x86)\Microsoft Visual Studio\2017\Enterprise\VC\Auxiliary\Build\vcvarsall.bat" %ARCH% >>"%log_file%" 2>&1 || call :pm-fatal-error "Error initializing Visual Studio environment"
 
 cd "%outpath%"
 
